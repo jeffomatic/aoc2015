@@ -5,7 +5,7 @@ def nice?(s)
   lastlast = ''
   has_repeat_with_gap = false
   has_repeated_pair = false
-  pairs = {}
+  first_occurence = {}
 
   s.each_char.each_with_index do |c, i|
     if lastlast == c
@@ -13,17 +13,14 @@ def nice?(s)
       has_repeat_with_gap = true
     end
 
-    if !last.empty? && !has_repeated_pair
+    if !has_repeated_pair
       k = [last, c]
-      indexes = pairs[k] || []
-
-      if !indexes.empty? && indexes.first < (i - 1)
+      if !first_occurence.key?(k)
+        first_occurence[k] = i
+      elsif first_occurence[k] < (i - 1)
         return true if has_repeat_with_gap
         has_repeated_pair = true
       end
-
-      indexes << i
-      pairs[k] = indexes
     end
 
     lastlast = last
