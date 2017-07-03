@@ -1,5 +1,3 @@
-require 'json'
-
 input = File.open('./input') { |f| f.read }.strip.split("\n")
 
 def parse_ident(tok)
@@ -36,7 +34,6 @@ input.each do |c|
   end
 end
 
-$depth = 0
 def eval(op, nodes, cache = {})
   args = op[:args]
   case op[:type]
